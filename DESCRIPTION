@@ -14,6 +14,8 @@ LazyData: true
 Suggests: 
     roxygen2
 Imports: 
-    rlang (>= 0.1.2)
+    rlang (>= 0.1.2),
+    magrittr
 URL: https://github.com/emilelatour/redcaptools
 BugReports: https://github.com/emilelatour/redcaptools/issues
+RoxygenNote: 6.1.1
