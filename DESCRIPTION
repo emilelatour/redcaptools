@@ -1,11 +1,11 @@
 Package: redcaptools
-Title: What the Package Does (One Line, Title Case)
+Title: Misc Tools For Working With REDCap Data In R
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Latour",
+           family = "Emile",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "latour@ohsu.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
@@ -14,8 +14,11 @@ LazyData: true
 Suggests: 
     roxygen2
 Imports: 
+    dplyr, 
     rlang (>= 0.1.2),
-    magrittr
+    magrittr, 
+    tibble, 
+    tidyr
 URL: https://github.com/emilelatour/redcaptools
 BugReports: https://github.com/emilelatour/redcaptools/issues
 RoxygenNote: 6.1.1
