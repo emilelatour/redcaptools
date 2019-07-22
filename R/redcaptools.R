@@ -17,7 +17,12 @@ NULL
 ## https://github.com/tidymodels/infer/blob/master/R/infer.R
 if (getRversion() >= "2.15.1") {
   utils::globalVariables(
-    c("."))
+    c(".",
+      "field_label",
+      "is_checkbox",
+      "field_name",
+      "clean_label",
+      "checkbox_choice"))
 
 }
 
