@@ -20,11 +20,11 @@ that apply.")`}
 \value{
 A `tbl_df` with the following columns:
 \describe{
-  \item{field_name}{First item}
-  \item{field_label}{Second item}
-  \item{clean_label}{Second item}
-  \item{checkbox_choice}{Second item}
-  \item{is_checkbox}{Second item}
+  \item{field_name}{REDCap variable names}
+  \item{field_label}{REDCap labels for the variables}
+  \item{clean_label}{REDCap labels that have been cleaned to remove extra text}
+  \item{checkbox_choice}{Options for checkbox type variables}
+  \item{is_checkbox}{TRUE/FALSE is this variable a checkbox}
 }
 }
 \description{
