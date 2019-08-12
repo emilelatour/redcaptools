@@ -16,7 +16,8 @@ Suggests:
 Imports: 
     dplyr, 
     rlang (>= 0.1.2),
-    magrittr, 
+    magrittr,
+    purrr,
     stringr, 
     tibble, 
     tidyr

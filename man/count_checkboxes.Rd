@@ -5,7 +5,7 @@
 \title{Count checkbox responses}
 \usage{
 count_checkboxes(data, ..., check_text = "Checked", negate = FALSE,
-  key_text = "field_name", value_text = "n", group = NULL)
+  key_text = "field_name", value_text = "n", data_labels = NULL)
 }
 \arguments{
 \item{data}{A tbl_df or data.frame}
@@ -22,7 +22,8 @@ count_checkboxes(data, ..., check_text = "Checked", negate = FALSE,
 
 \item{value_text}{Character string to name the result column of counts}
 
-\item{group}{Column name to `group_by`}
+\item{data_labels}{A data frame or tibble with columns, `field_name` and
+`checkbox_choice`. Used to replace variable names with checkbox labels.}
 }
 \value{
 a tble_df
@@ -32,7 +33,12 @@ Get summaary counts easily from checkbox style variables/columns in a REDCap
 data set.
 }
 \examples{
+#### Example 1 --------------------------------
+
+library(dplyr)
 library(tibble)
+library(tidyr)
+
 df <- tibble::tibble(
   id = c(1:100),
   group = sample(c("A", "B", "C"), size = 100, replace = TRUE),
@@ -40,8 +46,23 @@ df <- tibble::tibble(
   preferred_color___2 = sample(c("Checked", "Unchecked"), size = 100, replace = TRUE),
   preferred_color___3 = sample(c("Checked", "Unchecked"), size = 100, replace = TRUE),
   preferred_color___4 = sample(c("Checked", "Unchecked"), size = 100, replace = TRUE),
-  preferred_color___5 = sample(c("Checked", "Unchecked"), size = 100, replace = TRUE))
+  preferred_color___5 = sample(c("Checked", "Unchecked"), size = 100, replace = TRUE)) \%>\%
+  mutate(group = factor(group,
+                        levels = c("A", "B", "C")))
 
+
+var_labels <- tibble::tribble(
+  ~field_name, ~checkbox_choice,
+  "preferred_color___1",           "Blue",
+  "preferred_color___2",          "Green",
+  "preferred_color___3",         "Orange",
+  "preferred_color___4",            "Red",
+  "preferred_color___5",         "Yellow"
+)
+
+var_labels
+
+# Different ways of selecting variables
 count_checkboxes(data = df,
                  preferred_color___1:preferred_color___5)
 
@@ -51,18 +72,134 @@ count_checkboxes(data = df,
 count_checkboxes(data = df,
                  dplyr::starts_with("preferred_color"))
 
+
+# Different ways to select the "Unchecked" text instead
 count_checkboxes(data = df,
                  preferred_color___1:preferred_color___5,
                  check_text = "Unchecked",
                  key_text = "checkbox",
                  value_text = "count")
 
-count_checkboxes(data = df,
-                 preferred_color___1:preferred_color___5,
-                 group = group)
 
+df \%>\%
+  count_checkboxes(data = .,
+                   preferred_color___1:preferred_color___5,
+                   negate = TRUE)
+
+# Can handle grouping
+df \%>\%
+  group_by(group) \%>\%
+  count_checkboxes(data = .,
+                   preferred_color___1:preferred_color___5)
+
+# Can also apply labels instead of variable names
 count_checkboxes(data = df,
                  preferred_color___1:preferred_color___5,
                  negate = TRUE,
-                 group = group)
+                 data_labels = var_labels)
+
+
+
+#### Example 2 --------------------------------
+
+library(dplyr)
+library(tibble)
+library(tidyr)
+
+df2 <- tibble::tibble(
+  record_id = c(1:100),
+  gender = sample(c("Female", "Male"),
+                  size = 100,
+                  replace = TRUE),
+  gender_other = NA,
+  age = sample(c(18:85),
+               size = 100,
+               replace = TRUE),
+  education = sample(c("High-school", "College", "Graduate school"),
+                     size = 100,
+                     replace = TRUE),
+  ethnicity = sample(c("Hispanic", "Non-hispanic"),
+                     size = 100,
+                     replace = TRUE),
+  key = sample(c("race___1", "race___2", "race___3",
+                 "race___4", "race___5", "race___6", "race___98"),
+               size = 100,
+               replace = TRUE),
+  value = "Checked",
+  income = sample(c(20000:120000),
+                  size = 100,
+                  replace = TRUE),
+  marital_status = sample(c("Married", "Single"),
+                          size = 100,
+                          replace = TRUE),
+  survey_complete = sample(c("Complete", "Not complete"),
+                           size = 100,
+                           replace = TRUE)) \%>\%
+  mutate(key = factor(key,
+                      levels = c("race___1", "race___2", "race___3",
+                                 "race___4", "race___5", "race___6",
+                                 "race___98"))) \%>\%
+  tidyr::spread(.,
+                key = "key",
+                value = "value") \%>\%
+  mutate_at(.vars = vars(race___1:race___98),
+            .funs = list(~ tidyr::replace_na(., "Unchecked")))
+
+
+data_labels <- tibble::tribble(
+        ~field_name,                      ~checkbox_choice,
+        "record_id",                                    NA,
+           "gender",                                    NA,
+     "gender_other",                                    NA,
+              "age",                                    NA,
+        "education",                                    NA,
+        "ethnicity",                                    NA,
+         "race___1",                               "White",
+         "race___2",           "Black or African-American",
+         "race___3",    "American Indian or Alaska Native",
+         "race___4",                               "Asian",
+         "race___5", "Native Hawaiian or Pacific Islander",
+         "race___6",                               "Other",
+        "race___98",                "Prefer not to answer",
+       "race_other",                                    NA,
+           "income",                                    NA,
+   "marital_status",                                    NA,
+  "survey_complete",                                    NA
+  )
+
+
+
+
+count_checkboxes(data = df2,
+                 race___1:race___98)
+
+count_checkboxes(data = df2,
+                 dplyr::starts_with("race"))
+
+count_checkboxes(data = df2,
+                 dplyr::starts_with("race___"))
+
+df2 \%>\%
+  group_by(gender) \%>\%
+  count_checkboxes(data = .,
+                   race___1:race___98)
+
+df2 \%>\%
+  group_by(gender, education) \%>\%
+  count_checkboxes(data = .,
+                   race___1:race___98)
+
+
+
+# With labels
+
+count_checkboxes(data = df2,
+                 race___1:race___98,
+                 data_labels = data_labels)
+
+df2 \%>\%
+  group_by(gender, education) \%>\%
+  count_checkboxes(data = .,
+                   race___1:race___98,
+                   data_labels = data_labels)
 }
