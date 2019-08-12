@@ -7,7 +7,7 @@ Misc tools for working with REDCap data in R
 
 ## Installation
 
-You can install `reecaptools` with:
+You can install `redcaptools` with:
 
 ``` r
 remotes::install_github("emilelatour/redcaptools")
