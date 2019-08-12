@@ -22,7 +22,8 @@ if (getRversion() >= "2.15.1") {
       "is_checkbox",
       "field_name",
       "clean_label",
-      "checkbox_choice"))
+      "checkbox_choice",
+      "nn"))
 
 }
 
