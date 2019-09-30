@@ -23,7 +23,10 @@ if (getRversion() >= "2.15.1") {
       "field_name",
       "clean_label",
       "checkbox_choice",
-      "nn"))
+      "nn",
+      "fct_and_lvl_txt",
+      "lvl_txt",
+      "fct_txt"))
 
 }
 
