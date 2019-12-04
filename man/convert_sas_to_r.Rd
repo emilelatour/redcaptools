@@ -44,21 +44,21 @@ library(dplyr)
 
 # datapasta::vector_paste_vertical() or datapasta::vector_paste()
 
-text_from_sas <- c("value $ SEX_ 1=\\"Female\\"",
-                   "2=\\"Male\\";",
-                   "value $ RACE_ 1=\\"American Indian or Alaska Native\\"",
-                   "2=\\"Asian\\"",
-                   "3=\\"Black of African American\\"",
-                   "4=\\"Native Hawaiian or other Pacific Islander\\"",
-                   "5=\\"Multiracial\\"",
-                   "6=\\"White\\"",
-                   "999=\\"Unknown\\"",
-                   "9999=\\"Not Reported\\";",
-                   "value $ ETHNICITY_ 1=\\"Hispanic or Latino\\"",
-                   "2=\\"Not Hispanic or Latino\\"",
-                   "999=\\"Unknown\\";",
-                   "value $ REG_ELG_IND_ 1=\\"Yes\\"",
-                   "2=\\"No\\";")
+text_from_sas <- c("value $ SEX_ 1=\"Female\"",
+                   "2=\"Male\";",
+                   "value $ RACE_ 1=\"American Indian or Alaska Native\"",
+                   "2=\"Asian\"",
+                   "3=\"Black of African American\"",
+                   "4=\"Native Hawaiian or other Pacific Islander\"",
+                   "5=\"Multiracial\"",
+                   "6=\"White\"",
+                   "999=\"Unknown\"",
+                   "9999=\"Not Reported\";",
+                   "value $ ETHNICITY_ 1=\"Hispanic or Latino\"",
+                   "2=\"Not Hispanic or Latino\"",
+                   "999=\"Unknown\";",
+                   "value $ REG_ELG_IND_ 1=\"Yes\"",
+                   "2=\"No\";")
 
 #### Step 3 --------------------------------
 

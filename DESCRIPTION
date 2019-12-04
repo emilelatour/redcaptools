@@ -25,4 +25,4 @@ Imports:
     tidyr
 URL: https://github.com/emilelatour/redcaptools
 BugReports: https://github.com/emilelatour/redcaptools/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

@@ -3,7 +3,6 @@
 \docType{package}
 \name{redcaptools}
 \alias{redcaptools}
-\alias{redcaptools-package}
 \title{redcaptools: Misc tools for working with REDCap data in R}
 \description{
 This package contains a some functions that I find handy when working with

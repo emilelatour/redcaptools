@@ -4,8 +4,11 @@
 \alias{parse_field_labels_academic}
 \title{Parse labels from REDCap academic}
 \usage{
-parse_field_labels_academic(data, text = text,
-  checkbox_text = c("Choose all that apply.", "Mark all that apply."))
+parse_field_labels_academic(
+  data,
+  text = text,
+  checkbox_text = c("Choose all that apply.", "Mark all that apply.")
+)
 }
 \arguments{
 \item{data}{A data frame or tibble with a single column with the text from
@@ -49,23 +52,23 @@ example.
 
 data_labels <- tibble::tibble(
   text = # Paste as vertical vector
-    c("label(data$record_id)=\\"Record ID\\"",
-      "label(data$gender)=\\"What is your gender?\\"",
-      "label(data$gender_other)=\\"Prefer to self-describe:\\"",
-      "label(data$age)=\\"What is your age?\\"",
-      "label(data$education)=\\"What is the highest level of education you have completed? Mark only one.\\"",
-      "label(data$ethnicity)=\\"Would you describe yourself as being of Hispanic or Latino/a origin or descent?\\"",
-      "label(data$race___1)=\\"How would you describe your race? Mark all that apply. (choice=White)\\"",
-      "label(data$race___2)=\\"How would you describe your race? Mark all that apply. (choice=Black or African-American)\\"",
-      "label(data$race___3)=\\"How would you describe your race? Mark all that apply. (choice=American Indian or Alaska Native)\\"",
-      "label(data$race___4)=\\"How would you describe your race? Mark all that apply. (choice=Asian)\\"",
-      "label(data$race___5)=\\"How would you describe your race? Mark all that apply. (choice=Native Hawaiian or Pacific Islander)\\"",
-      "label(data$race___6)=\\"How would you describe your race? Mark all that apply. (choice=Other)\\"",
-      "label(data$race___98)=\\"How would you describe your race? Mark all that apply. (choice=Prefer not to answer)\\"",
-      "label(data$race_other)=\\"Other (tell us):\\"",
-      "label(data$income)=\\"What was your total household income (before taxes) last year (2018)? Your best estimate is fine.\\"",
-      "label(data$marital_status)=\\"What is your marital status?\\"",
-      "label(data$survey_complete)=\\"Complete?\\"")
+    c("label(data$record_id)=\"Record ID\"",
+      "label(data$gender)=\"What is your gender?\"",
+      "label(data$gender_other)=\"Prefer to self-describe:\"",
+      "label(data$age)=\"What is your age?\"",
+      "label(data$education)=\"What is the highest level of education you have completed? Mark only one.\"",
+      "label(data$ethnicity)=\"Would you describe yourself as being of Hispanic or Latino/a origin or descent?\"",
+      "label(data$race___1)=\"How would you describe your race? Mark all that apply. (choice=White)\"",
+      "label(data$race___2)=\"How would you describe your race? Mark all that apply. (choice=Black or African-American)\"",
+      "label(data$race___3)=\"How would you describe your race? Mark all that apply. (choice=American Indian or Alaska Native)\"",
+      "label(data$race___4)=\"How would you describe your race? Mark all that apply. (choice=Asian)\"",
+      "label(data$race___5)=\"How would you describe your race? Mark all that apply. (choice=Native Hawaiian or Pacific Islander)\"",
+      "label(data$race___6)=\"How would you describe your race? Mark all that apply. (choice=Other)\"",
+      "label(data$race___98)=\"How would you describe your race? Mark all that apply. (choice=Prefer not to answer)\"",
+      "label(data$race_other)=\"Other (tell us):\"",
+      "label(data$income)=\"What was your total household income (before taxes) last year (2018)? Your best estimate is fine.\"",
+      "label(data$marital_status)=\"What is your marital status?\"",
+      "label(data$survey_complete)=\"Complete?\"")
 
 )
 

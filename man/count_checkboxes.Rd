@@ -4,8 +4,15 @@
 \alias{count_checkboxes}
 \title{Count checkbox responses}
 \usage{
-count_checkboxes(data, ..., check_text = "Checked", negate = FALSE,
-  key_text = "field_name", value_text = "n", data_labels = NULL)
+count_checkboxes(
+  data,
+  ...,
+  check_text = "Checked",
+  negate = FALSE,
+  key_text = "field_name",
+  value_text = "n",
+  data_labels = NULL
+)
 }
 \arguments{
 \item{data}{A tbl_df or data.frame}

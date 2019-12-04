@@ -221,7 +221,8 @@ count_checkboxes <- function(data,
   #### Count the check boxes --------------------------------
 
   cbox_cnt <- data %>%
-    tidyr::nest() %>%
+    tidyr::nest(.data = .,
+                data = dplyr::everything()) %>%
     mutate(nn = purrr::map_int(.x = data,
                                .f = ~ dim(.x)[[1]])) %>%
     mutate(res = purrr::map(.x = data,
@@ -232,7 +233,7 @@ count_checkboxes <- function(data,
                                                key_text,
                                                value_text))) %>%
     dplyr::select(-data) %>%
-    tidyr::unnest() %>%
+    tidyr::unnest(cols = c(res)) %>%
     dplyr::select(-nn,
                   nn) %>%
     mutate(percent = !! rlang::sym(value_text) / nn)
