@@ -26,7 +26,11 @@ if (getRversion() >= "2.15.1") {
       "nn",
       "fct_and_lvl_txt",
       "lvl_txt",
-      "fct_txt"))
+      "fct_txt",
+      "lbls",
+      "lvls",
+      "res",
+      "var_name"))
 
 }
 
