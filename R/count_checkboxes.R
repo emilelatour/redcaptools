@@ -222,28 +222,48 @@ count_checkboxes <- function(data,
 
   #### Count the check boxes --------------------------------
 
-  cbox_cnt <- data %>%
-    # tidyr::nest(.data = .,
-    #             data = dplyr::everything()) %>%
-    tidyr::nest(.data = .) %>%
-    mutate(nn = purrr::map_int(.x = data,
-                               .f = ~ dim(.x)[[1]])) %>%
-    mutate(res = purrr::map(.x = data,
-                            .f = ~ .wrap_count(.x,
-                                               vars,
-                                               check_text,
-                                               negate,
-                                               key_text,
-                                               value_text))) %>%
-    dplyr::select(-data) %>%
-    tidyr::unnest(cols = c(res)) %>%
-    dplyr::select(-nn,
-                  nn) %>%
-    mutate(percent = !! rlang::sym(value_text) / nn)
+  if (dplyr::is_grouped_df(data)) {
+
+    cbox_cnt <- data %>%
+      tidyr::nest(.data = .) %>%
+      mutate(nn = purrr::map_int(.x = data,
+                                 .f = ~ dim(.x)[[1]])) %>%
+      mutate(res = purrr::map(.x = data,
+                              .f = ~ .wrap_count(.x,
+                                                 vars,
+                                                 check_text,
+                                                 negate,
+                                                 key_text,
+                                                 value_text))) %>%
+      dplyr::select(-data) %>%
+      tidyr::unnest(cols = c(res)) %>%
+      dplyr::select(-nn,
+                    nn) %>%
+      mutate(percent = !! rlang::sym(value_text) / nn) %>%
+      dplyr::ungroup()
+
+  } else {
+
+    cbox_cnt <- data %>%
+      tidyr::nest(.data = .,
+                  data = dplyr::everything()) %>%
+      mutate(nn = purrr::map_int(.x = data,
+                                 .f = ~ dim(.x)[[1]])) %>%
+      mutate(res = purrr::map(.x = data,
+                              .f = ~ .wrap_count(.x,
+                                                 vars,
+                                                 check_text,
+                                                 negate,
+                                                 key_text,
+                                                 value_text))) %>%
+      dplyr::select(-data) %>%
+      tidyr::unnest(cols = c(res)) %>%
+      dplyr::select(-nn,
+                    nn) %>%
+      mutate(percent = !! rlang::sym(value_text) / nn)
 
 
-  if (dplyr::is_grouped_df(cbox_cnt)) {
-    cbox_cnt <- dplyr::ungroup(cbox_cnt)
+
   }
 
 
