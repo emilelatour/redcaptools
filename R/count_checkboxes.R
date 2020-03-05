@@ -20,9 +20,11 @@
 #' @importFrom dplyr count
 #' @importFrom dplyr everything
 #' @importFrom dplyr group_by
+#' @importFrom dplyr is_grouped_df
 #' @importFrom dplyr mutate
 #' @importFrom dplyr pull
 #' @importFrom dplyr summarise_at
+#' @importFrom dplyr ungroup
 #' @importFrom dplyr vars
 #' @importFrom purrr map
 #' @importFrom purrr map_int
@@ -238,6 +240,11 @@ count_checkboxes <- function(data,
     dplyr::select(-nn,
                   nn) %>%
     mutate(percent = !! rlang::sym(value_text) / nn)
+
+
+  if (dplyr::is_grouped_df(cbox_cnt)) {
+    cbox_cnt <- dplyr::ungroup(cbox_cnt)
+  }
 
 
   #### Apply labels if avaiable --------------------------------
