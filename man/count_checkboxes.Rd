@@ -36,7 +36,7 @@ count_checkboxes(
 a tble_df
 }
 \description{
-Get summaary counts easily from checkbox style variables/columns in a REDCap
+Get summary counts easily from checkbox style variables/columns in a REDCap
 data set.
 }
 \examples{

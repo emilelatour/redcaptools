@@ -3,7 +3,7 @@
 #' Count checkbox responses
 #'
 #' @description
-#' Get summaary counts easily from checkbox style variables/columns in a REDCap
+#' Get summary counts easily from checkbox style variables/columns in a REDCap
 #' data set.
 #'
 #' @param data A tbl_df or data.frame
@@ -221,8 +221,9 @@ count_checkboxes <- function(data,
   #### Count the check boxes --------------------------------
 
   cbox_cnt <- data %>%
-    tidyr::nest(.data = .,
-                data = dplyr::everything()) %>%
+    # tidyr::nest(.data = .,
+    #             data = dplyr::everything()) %>%
+    tidyr::nest(.data = .) %>%
     mutate(nn = purrr::map_int(.x = data,
                                .f = ~ dim(.x)[[1]])) %>%
     mutate(res = purrr::map(.x = data,
