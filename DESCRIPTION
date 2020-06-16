@@ -17,12 +17,13 @@ Imports:
     clipr, 
     datapasta, 
     dplyr, 
-    rlang (>= 0.1.2),
+    glue, 
     magrittr,
     purrr,
+    rlang (>= 0.1.2),
     stringr, 
     tibble, 
     tidyr
 URL: https://github.com/emilelatour/redcaptools
 BugReports: https://github.com/emilelatour/redcaptools/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
