@@ -22,4 +22,3 @@ library(redcaptools)
 ## basic example code
 ```
 
-Checking that the token updated
