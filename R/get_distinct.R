@@ -55,24 +55,44 @@
 #'   get_distinct(data = .,
 #'                id = id,
 #'                age, sex, ethnicity, trt)
+#' df %>%
+#'   get_distinct(data = .,
+#'                id = id,
+#'                dplyr::starts_with("ag"))
+#'
+#' df %>%
+#'   get_distinct(data = .,
+#'                id = id,
+#'                dplyr::one_of("age", "sex"))
 
 get_distinct <- function(data,
                          id,
                          ...,
                          fill_direction = "downup") {
 
+  # id <- rlang::enquo(id)
+  # vars <- rlang::enquos(...)
+  #
+  # data %>%
+  #   dplyr::group_by(!! id) %>%
+  #   tidyr::fill(data = .,
+  #               !!! vars,
+  #               .direction = fill_direction) %>%
+  #   dplyr::distinct(!! id,
+  #                   !!! vars) %>%
+  #   dplyr::ungroup()
+
   id <- rlang::enquo(id)
-  vars <- rlang::enquos(...)
 
   data %>%
     dplyr::group_by(!! id) %>%
     tidyr::fill(data = .,
-                !!! vars,
+                ...,
                 .direction = fill_direction) %>%
-    dplyr::distinct(!! id,
-                    !!! vars) %>%
+    dplyr::select(!! id,
+                  ...) %>%
+    dplyr::distinct() %>%
     dplyr::ungroup()
 
 }
-
 

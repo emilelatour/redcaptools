@@ -51,4 +51,13 @@ df \%>\%
   get_distinct(data = .,
                id = id,
                age, sex, ethnicity, trt)
+df \%>\%
+  get_distinct(data = .,
+               id = id,
+               dplyr::starts_with("ag"))
+
+df \%>\%
+  get_distinct(data = .,
+               id = id,
+               dplyr::one_of("age", "sex"))
 }
