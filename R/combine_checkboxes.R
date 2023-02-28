@@ -179,6 +179,8 @@ combine_checkboxes <- function(data,
 
   col_name <- glue::glue("{prefix}combined")
 
+  value <- NULL
+
   ids_df <- data %>%
     dplyr::select(!! id_var)
 
@@ -195,13 +197,13 @@ combine_checkboxes <- function(data,
     check_boxes %>%
       mutate(value = dplyr::if_else(value == "Checked",
                                     value,
-                                    NULL)) %>%
+                                    NA_character_)) %>%
       dplyr::distinct(!! id_var, field_name, value, .keep_all = TRUE) %>%
       dplyr::filter(!is.na(value)) %>%
       dplyr::select(-value) %>%
       group_by(!! id_var) %>%
       summarise(!! col_name := stringr::str_c(field_name,
-                                            collapse = sep),
+                                              collapse = sep),
                 .groups = "drop") %>%
       dplyr::left_join(ids_df,
                        .,
@@ -228,17 +230,16 @@ combine_checkboxes <- function(data,
                           .,
                           by = "field_name")
 
-
       check_boxes %>%
         mutate(value = dplyr::if_else(value == "Checked",
                                       checkbox_choice,
-                                      NULL)) %>%
+                                      NA_character_)) %>%
         dplyr::distinct(!! id_var, field_name, value, .keep_all = TRUE) %>%
         dplyr::filter(!is.na(value)) %>%
         dplyr::select(-field_name) %>%
         group_by(!! id_var) %>%
         summarise(!! col_name := stringr::str_c(value,
-                                         collapse = sep),
+                                                collapse = sep),
                   .groups = "drop") %>%
         dplyr::left_join(ids_df,
                          .,
